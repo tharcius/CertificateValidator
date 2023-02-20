@@ -8,21 +8,20 @@ Table students {
   updated_at datetime
 }
 
-Table course_syllabuses {
+Table courses {
   id int [pk, increment]
   name varchar (60)
-  program_details text
+  duration int
+  description text
   created_at datetime
   updated_at datetime
 }
 
-Table courses {
+Table course_student {
   id int [pk, increment]
-  course_program_id int [ref: - course_syllabuses.id]
-  name varchar (60)
-  hourly_load int
-  created_at datetime
-  updated_at datetime
+  course_id int [ref: - courses.id]
+  student_id int [ref: - students.id]
+
 }
 
 Table schools{
@@ -37,9 +36,13 @@ Table certificates {
   student_id int [ref: > students.id]
   course_id int [ref: > courses.id]
   school_id int [ref: > schools.id]
+  viewed int [default: 0]
   conclusion_date datetime
   certificate_code varchar(10)
   created_at datetime
   updated_at datetime
-}
 
+  indexes{
+    certificate_code
+  }
+}

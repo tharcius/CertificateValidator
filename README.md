@@ -19,6 +19,7 @@
 - Idealização do projeto e desenho do diagrama de banco de dados
 - Preparando o ambiente de desenvolvimento instalando plugins uteis:
 Artisan Pint, PHPInsights
+- Refatoração do diagrama de banco de dados
 
 ## License
 
