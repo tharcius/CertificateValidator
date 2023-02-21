@@ -1,0 +1,118 @@
+version: '3.8'
+services:
+    certval.laravel:
+        container_name: certval.laravel
+        working_dir: /var/www/app
+        build:
+            context: /.docker
+            dockerfile: Dockerfile
+            args:
+                user: admin
+                uid: 1000
+        image: php:8.2-fpm
+        volumes:
+            - .:/var/www/app
+        networks:
+            - certval
+        depends_on:
+            - certval.pgsql
+            - certval.mariadb
+            - certval.redis
+            - certval.mailpit
+            - certval.installation
+    certval.nginx:
+        container_name: certval.nginx
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - '${APP_PORT:-80}:80'
+            - 443:443
+        volumes:
+            - ./:/var/www/app
+            - ./.docker/nginx/:/etc/nginx/conf.d/
+        networks:
+            - certval
+        depends_on:
+            - certval.laravel
+    certval.installation:
+        container_name: certval.installation
+        image: composer
+        volumes:
+            - ./:/app
+        command: composer install
+    certval.pgsql:
+        container_name: certval.pgsql
+        image: 'postgres:15'
+        ports:
+            - '${DB_PORT_PG:-5432}:5432'
+        environment:
+            PGPASSWORD: '${DB_ROOT_PASSWORD:-secret}'
+            POSTGRES_DB: '${DB_DATABASE}'
+            POSTGRES_USER: '${DB_USERNAME}'
+            POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+        volumes:
+            - ./docker/database/pgsql:/var/lib/postgresql/data
+        networks:
+            - certval
+        healthcheck:
+            test:
+                - CMD
+                - pg_isready
+                - '-q'
+                - '-d'
+                - '${DB_DATABASE}'
+                - '-U'
+                - '${DB_USERNAME}'
+            retries: 3
+            timeout: 5s
+    certval.mariadb:
+        container_name: certval.mariadb
+        image: 'mariadb:10'
+        ports:
+            - '${DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+        volumes:
+            - ./docker/database/mariadb:/var/lib/mysql
+        networks:
+            - certval
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-p${DB_PASSWORD}'
+            retries: 3
+            timeout: 5s
+    certval.redis:
+        container_name: certval.redis
+        image: 'redis:alpine'
+        ports:
+            - '${FORWARD_REDIS_PORT:-6379}:6379'
+        volumes:
+            - ./docker/redis:/data
+        networks:
+            - certval
+        healthcheck:
+            test:
+                - CMD
+                - redis-cli
+                - ping
+            retries: 3
+            timeout: 5s
+    certval.mailpit:
+        container_name: certval.mailpit
+        image: 'axllent/mailpit:latest'
+        ports:
+            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+        networks:
+            - certval
+networks:
+    certval:
+        driver: bridge
