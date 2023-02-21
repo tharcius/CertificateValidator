@@ -20,6 +20,10 @@
 - Preparando o ambiente de desenvolvimento instalando plugins uteis:
 Artisan Pint, PHPInsights
 - Refatoração do diagrama de banco de dados
+- Criação das migrations, models, factories e testes de banco de dados
+
+### TODO
+- Criar testes para o banco de dados
 
 ## License
 

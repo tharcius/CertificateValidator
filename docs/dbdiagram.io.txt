@@ -4,8 +4,6 @@ Table students {
   id int [pk, increment]
   name varchar (60)
   email varchar (60)
-  created_at datetime
-  updated_at datetime
 }
 
 Table courses {
@@ -13,8 +11,6 @@ Table courses {
   name varchar (60)
   duration int
   description text
-  created_at datetime
-  updated_at datetime
 }
 
 Table course_student {
@@ -33,14 +29,12 @@ Table schools{
 
 Table certificates {
   id int [pk, increment]
-  student_id int [ref: > students.id]
   course_id int [ref: > courses.id]
   school_id int [ref: > schools.id]
-  viewed int [default: 0]
-  conclusion_date datetime
+  student_id int [ref: > students.id]
   certificate_code varchar(10)
-  created_at datetime
-  updated_at datetime
+  conclusion_date datetime
+  viewed int [default: 0]
 
   indexes{
     certificate_code
