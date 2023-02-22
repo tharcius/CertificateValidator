@@ -27,5 +27,4 @@ class Student extends Model
     {
         return $this->belongsToMany(Course::class);
     }
-
 }

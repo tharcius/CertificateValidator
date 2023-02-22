@@ -14,7 +14,7 @@ return new class () extends Migration {
             $table->id();
             $table->string('name', 60);
             $table->unsignedInteger('duration');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

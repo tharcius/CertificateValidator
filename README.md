@@ -21,6 +21,14 @@
 Artisan Pint, PHPInsights
 - Refatoração do diagrama de banco de dados
 - Criação das migrations, models, factories e testes de banco de dados
+- Criação do ambiente Docker para fazer o deploy tendo como servidor web NGINX e utilizando tanto o MariaDB quanto o Postgres para testes.
+- Criação do CRUD de Cursos
+- Criação de testes de feature
+- Criação dos testes para o CRUD de Cursos
+- Criação das rotas para o CRUD de Cursos
+- Criação de Request Form para o CRUD de cursos
+- Criação de um Resource para padronizar o retorno de dados
+- Ajustes na migration de Cursos
 
 ### TODO
 - Criar testes para o banco de dados
