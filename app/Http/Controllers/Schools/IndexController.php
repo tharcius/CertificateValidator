@@ -1,23 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Course;
+namespace App\Http\Controllers\Schools;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
+use App\Models\School;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
     /**
-     * Return an array of data in JSON format with all courses
+     * Handle the incoming request.
      */
-    public function __invoke(): JsonResponse
+    public function __invoke(Request $request): JsonResponse
     {
-        $courses = Course::all();
+        $courses = School::all();
         return response()->json([
             'data' => $courses,
             'status' => 'success',
-            'message' => 'Courses retrieved successfully'
+            'message' => 'Schools retrieved successfully'
         ], self::HTTP_OK);
     }
 }

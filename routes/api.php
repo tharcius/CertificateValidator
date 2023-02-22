@@ -22,6 +22,10 @@ Route::prefix('/courses')->group(function () {
     require __DIR__.'/courses.php';
 });
 
+Route::prefix('/schools')->group(function () {
+    require __DIR__.'/schools.php';
+});
+
 Route::prefix('/auth')->group(function () {
     require __DIR__.'/auth.php';
 });

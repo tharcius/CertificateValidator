@@ -23,12 +23,9 @@ Artisan Pint, PHPInsights
 - Criação das migrations, models, factories e testes de banco de dados
 - Criação do ambiente Docker para fazer o deploy tendo como servidor web NGINX e utilizando tanto o MariaDB quanto o Postgres para testes.
 - Criação do CRUD de Cursos
-- Criação de testes de feature
-- Criação dos testes para o CRUD de Cursos
-- Criação das rotas para o CRUD de Cursos
-- Criação de Request Form para o CRUD de cursos
-- Criação de um Resource para padronizar o retorno de dados
+- Criação dos testes, rotas, request form, resource para o CRUD de Cursos
 - Ajustes na migration de Cursos
+- Criação dos testes, rotas, request form, resource para o CRUD de Escolas
 
 ### TODO
 - Criar testes para o banco de dados
