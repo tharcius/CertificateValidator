@@ -29,6 +29,7 @@ Artisan Pint, PHPInsights
 - Implementando o OpenAPI para fazer a documentação da API utilizando o https://github.com/rakutentech/laravel-request-docs
 - Implementando camada de repositórios em Cursos e Escolas.
 - Implementando Estudantes com repositories
+- Algumas correções no projeto e nos testes automatizados
 
 ### TODO
 - Criar testes para o banco de dados

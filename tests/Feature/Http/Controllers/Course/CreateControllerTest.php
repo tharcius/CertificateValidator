@@ -1,12 +1,6 @@
 <?php
 
-it('should return status 200 in the index of courses', function () {
-    $response = $this->head('/courses');
-
-    $response->assertStatus(200);
-});
-
-it('should return status 201 on creation of this registers', function (array $dataset) {
+it('should return status 201 on creation of this courses', function (array $dataset) {
     $response = $this->post('/courses', $dataset);
     $response->assertStatus(201);
 })->with([

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Students;
 
-
 use Illuminate\Http\JsonResponse;
 
 class ShowController extends StudentController

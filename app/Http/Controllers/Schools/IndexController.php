@@ -12,9 +12,9 @@ class IndexController extends SchoolController
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $courses = $this->repository->getAllSchools();
+        $schools = $this->repository->getAllSchools();
         return response()->json([
-            'data' => $courses,
+            'data' => $schools,
             'status' => 'success',
             'message' => 'Schools retrieved successfully'
         ], self::HTTP_OK);
