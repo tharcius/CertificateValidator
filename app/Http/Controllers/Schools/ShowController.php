@@ -2,22 +2,34 @@
 
 namespace App\Http\Controllers\Schools;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\SchoolResource;
-use App\Models\School;
 use Illuminate\Http\JsonResponse;
 
-class ShowController extends Controller
+class ShowController extends SchoolController
 {
     /**
-     * Handle the incoming request.
+     * Return a school.
      */
-    public function __invoke(School $school): JsonResponse
+    public function __invoke(int $schoolId): JsonResponse
     {
-        return response()->json([
-            'data' => new SchoolResource($school),
-            'status' => 'success',
-            'message' => 'School found successfully'
-        ], self::HTTP_OK);
+        $school = $this->repository->getSchool($schoolId);
+
+        if (!$school) {
+            return response()->json(
+                [
+                    'data' => null,
+                    'status' => 'error',
+                    'message' => 'Fail on search School'
+                ],
+                self::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+        return response()->json(
+            [
+                'data' => $school,
+                'status' => 'success',
+                'message' => 'School found successfully'
+            ],
+            self::HTTP_CREATE_OK
+        );
     }
 }

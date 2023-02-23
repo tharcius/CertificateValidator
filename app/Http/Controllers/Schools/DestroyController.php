@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers\Schools;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\SchoolResource;
-use App\Models\School;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
-class DestroyController extends Controller
+class DestroyController extends SchoolController
 {
     /**
-     * Handle the incoming request.
+     * Delete a school.
      */
-    public function __invoke(School $school): JsonResponse
+    public function __invoke(int $schoolId): JsonResponse
     {
-        try {
-            $school->deleteOrFail();
+        $school = $this->repository->deleteSchool($schoolId);
 
-            return response()->json([
-                'data' => new SchoolResource($school),
+        if (!$school) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Fail on delete School'
+                ],
+                self::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+        return response()->json(
+            [
+                'data' => $school,
                 'status' => 'success',
                 'message' => 'School deleted successfully'
-            ], self::HTTP_OK);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Fail on delete School'
-            ], self::HTTP_UNPROCESSABLE_ENTITY);
-        }
-    }}
+            ],
+            self::HTTP_OK
+        );
+    }
+}

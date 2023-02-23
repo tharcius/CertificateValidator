@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers\Course;
 
-use App\Http\Controllers\Controller;
-use App\Models\Course;
 use Illuminate\Http\JsonResponse;
 
-class IndexController extends Controller
+class IndexController extends CourseController
 {
     /**
-     * Return an array of data in JSON format with all courses
+     * Return an array of data in JSON format with all courses.
      */
     public function __invoke(): JsonResponse
     {
-        $courses = Course::all();
+        $courses = $this->repository->getAllCourses();
         return response()->json([
             'data' => $courses,
             'status' => 'success',

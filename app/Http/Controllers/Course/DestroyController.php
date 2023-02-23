@@ -2,31 +2,33 @@
 
 namespace App\Http\Controllers\Course;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\CourseResource;
-use App\Models\Course;
 use Illuminate\Http\JsonResponse;
 
-class DestroyController extends Controller
+class DestroyController extends CourseController
 {
     /**
-     * Handle the incoming request.
+     * Delete a course.
      */
-    public function __invoke(Course $course): JsonResponse
+    public function __invoke(int $courseId): JsonResponse
     {
-        try {
-            $course->deleteOrFail();
+        $course = $this->repository->deleteCourse($courseId);
 
-            return response()->json([
-                'data' => new CourseResource($course),
-                'status' => 'success',
-                'message' => 'Course deleted successfully'
-            ], self::HTTP_OK);
-        } catch (\Exception $e) {
-            return response()->json([
+        if (!$course) {
+            return response()->json(
+                [
                 'status' => 'error',
                 'message' => 'Fail on delete Course'
-            ], self::HTTP_UNPROCESSABLE_ENTITY);
+            ],
+                self::HTTP_UNPROCESSABLE_ENTITY
+            );
         }
+        return response()->json(
+            [
+            'data' => $course,
+            'status' => 'success',
+            'message' => 'Course deleted successfully'
+        ],
+            self::HTTP_OK
+        );
     }
 }
