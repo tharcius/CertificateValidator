@@ -14,7 +14,7 @@ return new class () extends Migration {
             $table->id();
             $table->string('certificate_code')->unique();
             $table->dateTime('conclusion_date');
-            $table->unsignedInteger('viewed');
+            $table->unsignedInteger('viewed')->default(0);
             $table->foreignId('course_id')->constrained('courses');
             $table->foreignId('school_id')->constrained('schools');
             $table->foreignId('student_id')->constrained('students');

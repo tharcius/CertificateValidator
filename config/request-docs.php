@@ -15,7 +15,7 @@ return [
     ],
 
     //Use only routes where ->uri start with next string Using Str::startWith( . e.g. - /api/mobile
-    'only_route_uri_start_with' => ['courses', 'schools'],
+    'only_route_uri_start_with' => ['courses', 'schools', 'students', 'certificates'],
 
     'hide_matching' => [
         '#^telescope#',
