@@ -30,6 +30,10 @@ Route::prefix('/students')->group(function () {
     require __DIR__.'/students.php';
 });
 
+Route::prefix('/certificates')->group(function () {
+    require __DIR__.'/certificates.php';
+});
+
 Route::prefix('/auth')->group(function () {
     require __DIR__.'/auth.php';
 });

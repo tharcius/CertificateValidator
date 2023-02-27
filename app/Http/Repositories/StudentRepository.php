@@ -3,11 +3,11 @@
 namespace App\Http\Repositories;
 
 use App\Http\Resources\StudentResource;
-use App\Interfaces\StudentsRepositoryInterface;
+use App\Interfaces\StudentRepositoryInterface;
 use App\Models\Student;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class StudentRepository implements StudentsRepositoryInterface
+class StudentRepository implements StudentRepositoryInterface
 {
     public function __construct(private Student $student)
     {

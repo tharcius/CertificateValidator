@@ -5,7 +5,7 @@ namespace App\Interfaces;
 use App\Http\Resources\StudentResource;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-interface StudentsRepositoryInterface
+interface StudentRepositoryInterface
 {
     public function getAllStudents(): AnonymousResourceCollection;
     public function createStudent(array $student): StudentResource|false;
