@@ -23,7 +23,6 @@ class UpdateRequest extends FormRequest
             'conclusion_date' => 'date_format:d/m/Y',
             'course_id' => 'integer|min:1|exists:courses,id',
             'school_id' => 'integer|min:1|exists:schools,id',
-            'student_id' => 'integer|min:1|exists:students,id',
         ];
     }
 }

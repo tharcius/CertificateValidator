@@ -26,10 +26,6 @@ class Certificate extends Model
         'conclusion_date' => 'datetime',
     ];
 
-    protected $hidden = [
-        'id',
-    ];
-
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);

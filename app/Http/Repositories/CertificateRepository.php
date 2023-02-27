@@ -9,7 +9,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CertificateRepository implements CertificateRepositoryInterface
 {
-
     public function __construct(private Certificate $certificate)
     {
     }
@@ -24,24 +23,49 @@ class CertificateRepository implements CertificateRepositoryInterface
         $certificate['certificate_code'] = certificateCode();
         try {
             $resource = $this->certificate->create($certificate);
+            $resource->course->certificates()->sync([$certificate['certificate_id']]);
+
             return new CertificateResource($resource);
         } catch (\Exception $e) {
             return false;
         }
     }
 
-    public function getCertificate(int $certificateId): CertificateResource|false
+    public function getCertificate(string $certificateCode): CertificateResource|false
     {
-        // TODO: Implement getCertificate() method.
+        try {
+            $resource = $this->certificate->where('certificate_code', $certificateCode)->firstOrFail();
+            $resource->update(['viewed' => $resource->viewed++]);
+            return new CertificateResource($resource);
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
-    public function updateCertificate(array $data, int $certificateId): CertificateResource|false
+    public function updateCertificate(array $data, string $certificateCode): CertificateResource|false
     {
-        // TODO: Implement updateCertificate() method.
+        try {
+            $certificate = $this->certificate->where('certificate_code', $certificateCode)->firstOrFail();
+            if (!empty($data['course_id'])) {
+                $certificate->student->courses()->sync([$data['course_id']]);
+            }
+            $certificate->update($data);
+
+            return new CertificateResource($certificate);
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
-    public function deleteCertificate(int $certificateId): CertificateResource|false
+    public function deleteCertificate(string $certificateCode): CertificateResource|false
     {
-        // TODO: Implement deleteCertificate() method.
+        try {
+            $certificate = $this->certificate->where('certificate_code', $certificateCode)->firstOrFail();
+            $certificate->deleteOrFail();
+
+            return new CertificateResource($certificate);
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }

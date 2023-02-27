@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Certificates;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Certificates\CreateRequest;
 use Illuminate\Http\JsonResponse;
 

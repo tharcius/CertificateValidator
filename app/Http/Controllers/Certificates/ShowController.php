@@ -2,17 +2,34 @@
 
 namespace App\Http\Controllers\Certificates;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
-class ShowController extends Controller
+class ShowController extends CertificateController
 {
     /**
-     * Handle the incoming request.
+     * Return a certificate.
      */
-    public function __invoke(Request $request): Response
+    public function __invoke($certificateCode): JsonResponse
     {
-        //
+        $certificate = $this->repository->getCertificate($certificateCode);
+
+        if (!$certificate) {
+            return response()->json(
+                [
+                    'data' => null,
+                    'status' => 'error',
+                    'message' => 'Fail on search certificate'
+                ],
+                self::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+        return response()->json(
+            [
+                'data' => $certificate,
+                'status' => 'success',
+                'message' => 'Certificate found successfully'
+            ],
+            self::HTTP_CREATE_OK
+        );
     }
 }
