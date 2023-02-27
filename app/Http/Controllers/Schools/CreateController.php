@@ -2,34 +2,37 @@
 
 namespace App\Http\Controllers\Schools;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Schools\CreateRequest;
-use App\Http\Resources\SchoolResource;
-use App\Models\School;
 use Illuminate\Http\JsonResponse;
 
-class CreateController extends Controller
+class CreateController extends SchoolController
 {
     /**
-     * Handle the incoming request.
+     * Create a new school.
      */
     public function __invoke(CreateRequest $school): JsonResponse
     {
         $data = $school->only('name', 'logo', 'certificate');
 
-        try {
-            $result = School::create($data);
-            $teste = new SchoolResource($result);
-            return response()->json([
-                'data' => new SchoolResource($result),
+        $result = $this->repository->createSchool($data);
+
+        if (!$result) {
+            return response()->json(
+                [
+                    'data' => null,
+                    'status' => 'error',
+                    'message' => 'Fail on create School'
+                ],
+                self::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+        return response()->json(
+            [
+                'data' => $result,
                 'status' => 'success',
                 'message' => 'School created successfully'
-            ], self::HTTP_CREATE_OK);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Fail on create School'
-            ], self::HTTP_UNPROCESSABLE_ENTITY);
-        }
+            ],
+            self::HTTP_CREATE_OK
+        );
     }
 }

@@ -17,7 +17,7 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->company(),
+            'name' => fake()->country() . ' History',
             'duration' => fake()->numberBetween(20, 240),
             'description' => fake()->sentence(random_int(30, 120), true),
         ];

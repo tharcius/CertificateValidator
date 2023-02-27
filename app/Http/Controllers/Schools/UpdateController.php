@@ -2,32 +2,35 @@
 
 namespace App\Http\Controllers\Schools;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Schools\UpdateRequest;
 use App\Http\Resources\SchoolResource;
-use App\Models\School;
 use Illuminate\Http\JsonResponse;
 
-class UpdateController extends Controller
+class UpdateController extends SchoolController
 {
     /**
-     * Handle the incoming request.
+     * Update a school.
      */
-    public function __invoke(UpdateRequest $data, School $school): JsonResponse
+    public function __invoke(UpdateRequest $data, $schoolId): JsonResponse
     {
-        try {
-            $school->update($data->only('name', 'logo', 'certificate'));
+        $school = $this->repository->updateSchool($data->only('name', 'logo', 'certificate'), $schoolId);
 
-            return response()->json([
+        if (!$school) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Fail on update School'
+                ],
+                self::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+        return response()->json(
+            [
                 'data' => new SchoolResource($school),
                 'status' => 'success',
                 'message' => 'School updated successfully'
-            ], self::HTTP_OK);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Fail on update School'
-            ], self::HTTP_UNPROCESSABLE_ENTITY);
-        }
+            ],
+            self::HTTP_OK
+        );
     }
 }

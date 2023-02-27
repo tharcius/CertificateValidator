@@ -1,7 +1,7 @@
 <?php
 
-test('example', function () {
-    $response = $this->get('/');
+it('should return status 200 in the index of courses', function () {
+    $response = $this->head('/courses');
 
     $response->assertStatus(200);
 });

@@ -9,6 +9,6 @@ use App\Http\Controllers\Course\UpdateController as CourseUpdate;
 
 Route::get('/', CourseIndex::class);
 Route::post('/', CourseCreate::class);
-Route::get('/{course}', CourseShow::class);
-Route::patch('/{course}', CourseUpdate::class);
-Route::delete('/{course}', CourseDestroy::class);
+Route::get('/{courseId}', CourseShow::class);
+Route::patch('/{courseId}', CourseUpdate::class);
+Route::delete('/{courseId}', CourseDestroy::class);

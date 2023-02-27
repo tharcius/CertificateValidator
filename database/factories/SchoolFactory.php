@@ -17,9 +17,9 @@ class SchoolFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'logo' => fake()->word(),
-            'certificate' => fake()->word(),
+            'name' => fake('pt_BR')->company() . ' School of ' . fake('pt_BR')->word(),
+            'logo' => fake()->word() . '.png',
+            'certificate' => fake()->word() . '.png',
         ];
     }
 }

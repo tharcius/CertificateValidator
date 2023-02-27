@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,10 +17,13 @@ class Certificate extends Model
     protected $fillable = [
         'certificate_code',
         'conclusion_date',
-        'viewed',
         'course_id',
         'school_id',
         'student_id',
+    ];
+
+    protected $casts = [
+        'conclusion_date' => 'datetime',
     ];
 
     public function course(): BelongsTo
@@ -34,5 +39,13 @@ class Certificate extends Model
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
+    }
+
+    protected function conclusionDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Carbon::parse($value)->format('d/m/Y'),
+            set: fn (string $value) => Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d')
+        );
     }
 }

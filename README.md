@@ -16,17 +16,22 @@
 ### Testes/QA
 
 ### Roadmap
-- Idealização do projeto e desenho do diagrama de banco de dados
+- Idealização do projeto e desenho do diagrama de banco de dados.
 - Preparando o ambiente de desenvolvimento instalando plugins uteis:
-Artisan Pint, PHPInsights
-- Refatoração do diagrama de banco de dados
-- Criação das migrations, models, factories e testes de banco de dados
+Artisan Pint, PHPInsights.
+- Refatoração do diagrama de banco de dados.
+- Criação das migrations, models, factories e testes de banco de dados.
 - Criação do ambiente Docker para fazer o deploy tendo como servidor web NGINX e utilizando tanto o MariaDB quanto o Postgres para testes.
-- Criação do CRUD de Cursos
-- Criação dos testes, rotas, request form, resource para o CRUD de Cursos
-- Ajustes na migration de Cursos
-- Criação dos testes, rotas, request form, resource para o CRUD de Escolas
-- Implementando o OpenAPI para fazer a documentação da API utilizando o https://github.com/rakutentech/laravel-request-docs
+- Criação do CRUD de Cursos.
+- Criação dos testes, rotas, request form, resource para o CRUD de Cursos.
+- Ajustes na migration de Cursos.
+- Criação dos testes, rotas, request form, resource para o CRUD de Escolas.
+- Implementando o OpenAPI para fazer a documentação da API utilizando o https://github.com/rakutentech/laravel-request-docs.
+- Implementando camada de repositórios em Cursos e Escolas.
+- Implementando Estudantes com repositories.
+- Algumas correções no projeto e nos testes automatizados.
+- Implementando Certificados com repositories.
+- Refatorando e limpando as classes
 
 ### TODO
 - Criar testes para o banco de dados

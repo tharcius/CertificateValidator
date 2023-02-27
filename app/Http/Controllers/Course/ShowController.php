@@ -2,22 +2,34 @@
 
 namespace App\Http\Controllers\Course;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\CourseResource;
-use App\Models\Course;
 use Illuminate\Http\JsonResponse;
 
-class ShowController extends Controller
+class ShowController extends CourseController
 {
     /**
-     * Handle the incoming request.
+     * Return a course.
      */
-    public function __invoke(Course $course): CourseResource|JsonResponse
+    public function __invoke($courseId): JsonResponse
     {
-        return response()->json([
-            'data' => new CourseResource($course),
-            'status' => 'success',
-            'message' => 'Course found successfully'
-        ], self::HTTP_OK);
+        $course = $this->repository->getCourse($courseId);
+
+        if (!$course) {
+            return response()->json(
+                [
+                    'data' => null,
+                    'status' => 'error',
+                    'message' => 'Fail on search Course'
+                ],
+                self::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+        return response()->json(
+            [
+                'data' => $course,
+                'status' => 'success',
+                'message' => 'Course found successfully'
+            ],
+            self::HTTP_CREATE_OK
+        );
     }
 }

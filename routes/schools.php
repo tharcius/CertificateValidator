@@ -9,6 +9,6 @@ use App\Http\Controllers\Schools\ShowController as SchoolShow;
 
 Route::get('/', SchoolIndex::class);
 Route::post('/', SchoolCreate::class);
-Route::get('/{school}', SchoolShow::class);
-Route::patch('/{school}', SchoolUpdate::class);
-Route::delete('/{school}', SchoolDestroy::class);
+Route::get('/{schoolId}', SchoolShow::class);
+Route::patch('/{schoolId}', SchoolUpdate::class);
+Route::delete('/{schoolId}', SchoolDestroy::class);

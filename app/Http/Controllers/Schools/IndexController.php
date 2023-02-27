@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Schools;
 
-use App\Http\Controllers\Controller;
-use App\Models\School;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
-class IndexController extends Controller
+class IndexController extends SchoolController
 {
     /**
-     * Handle the incoming request.
+     * Return an array of data in JSON format with all schools.
      */
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(): JsonResponse
     {
-        $courses = School::all();
-        return response()->json([
-            'data' => $courses,
+        $schools = $this->repository->getAllSchools();
+        return response()->json(
+            [
+            'data' => $schools,
             'status' => 'success',
             'message' => 'Schools retrieved successfully'
-        ], self::HTTP_OK);
+        ],
+            self::HTTP_OK
+        );
     }
 }
