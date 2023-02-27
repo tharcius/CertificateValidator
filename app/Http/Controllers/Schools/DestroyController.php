@@ -9,7 +9,7 @@ class DestroyController extends SchoolController
     /**
      * Delete a school.
      */
-    public function __invoke(int $schoolId): JsonResponse
+    public function __invoke($schoolId): JsonResponse
     {
         $school = $this->repository->deleteSchool($schoolId);
 

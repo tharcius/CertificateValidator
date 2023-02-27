@@ -12,10 +12,13 @@ class IndexController extends CourseController
     public function __invoke(): JsonResponse
     {
         $courses = $this->repository->getAllCourses();
-        return response()->json([
+        return response()->json(
+            [
             'data' => $courses,
             'status' => 'success',
             'message' => 'Courses retrieved successfully'
-        ], self::HTTP_OK);
+        ],
+            self::HTTP_OK
+        );
     }
 }

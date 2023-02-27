@@ -12,10 +12,13 @@ class IndexController extends StudentController
     public function __invoke(): JsonResponse
     {
         $students = $this->repository->getAllStudents();
-        return response()->json([
+        return response()->json(
+            [
             'data' => $students,
             'status' => 'success',
             'message' => 'Students retrieved successfully'
-        ], self::HTTP_OK);
+        ],
+            self::HTTP_OK
+        );
     }
 }

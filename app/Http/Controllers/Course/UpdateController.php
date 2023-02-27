@@ -11,7 +11,7 @@ class UpdateController extends CourseController
     /**
      * Update a course.
      */
-    public function __invoke(UpdateRequest $data, int $courseId): JsonResponse
+    public function __invoke(UpdateRequest $data, $courseId): JsonResponse
     {
         $course = $this->repository->updateCourse($data->only('name', 'duration', 'description'), $courseId);
 

@@ -9,7 +9,7 @@ class ShowController extends SchoolController
     /**
      * Return a school.
      */
-    public function __invoke(int $schoolId): JsonResponse
+    public function __invoke($schoolId): JsonResponse
     {
         $school = $this->repository->getSchool($schoolId);
 

@@ -9,7 +9,7 @@ class ShowController extends StudentController
     /**
      * Return a student.
      */
-    public function __invoke(int $studentId): JsonResponse
+    public function __invoke($studentId): JsonResponse
     {
         $student = $this->repository->getStudent($studentId);
 

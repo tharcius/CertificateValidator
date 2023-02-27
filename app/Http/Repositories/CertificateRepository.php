@@ -19,7 +19,7 @@ class CertificateRepository implements CertificateRepositoryInterface
         return CertificateResource::collection($this->certificate->all());
     }
 
-    public function createCertificate(array $certificate): CertificateResource|false
+    public function createCertificate($certificate): CertificateResource|false
     {
         try {
             $certificate['certificate_code'] = certificateCode();
@@ -32,7 +32,7 @@ class CertificateRepository implements CertificateRepositoryInterface
         }
     }
 
-    public function getCertificate(string $certificateCode): CertificateResource|false
+    public function getCertificate($certificateCode): CertificateResource|false
     {
         try {
             $resource = $this->certificate->where('certificate_code', $certificateCode)->firstOrFail();
@@ -43,7 +43,7 @@ class CertificateRepository implements CertificateRepositoryInterface
         }
     }
 
-    public function updateCertificate(array $data, string $certificateCode): CertificateResource|false
+    public function updateCertificate($data, $certificateCode): CertificateResource|false
     {
         try {
             $certificate = $this->certificate->where('certificate_code', $certificateCode)->firstOrFail();
@@ -58,7 +58,7 @@ class CertificateRepository implements CertificateRepositoryInterface
         }
     }
 
-    public function deleteCertificate(string $certificateCode): CertificateResource|false
+    public function deleteCertificate($certificateCode): CertificateResource|false
     {
         try {
             $certificate = $this->certificate->where('certificate_code', $certificateCode)->firstOrFail();

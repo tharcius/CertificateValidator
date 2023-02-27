@@ -31,6 +31,7 @@ Artisan Pint, PHPInsights.
 - Implementando Estudantes com repositories.
 - Algumas correções no projeto e nos testes automatizados.
 - Implementando Certificados com repositories.
+- Refatorando e limpando as classes
 
 ### TODO
 - Criar testes para o banco de dados

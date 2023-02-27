@@ -11,7 +11,7 @@ class UpdateController extends SchoolController
     /**
      * Update a school.
      */
-    public function __invoke(UpdateRequest $data, int $schoolId): JsonResponse
+    public function __invoke(UpdateRequest $data, $schoolId): JsonResponse
     {
         $school = $this->repository->updateSchool($data->only('name', 'logo', 'certificate'), $schoolId);
 

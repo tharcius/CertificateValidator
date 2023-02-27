@@ -9,7 +9,7 @@ class ShowController extends CourseController
     /**
      * Return a course.
      */
-    public function __invoke(int $courseId): JsonResponse
+    public function __invoke($courseId): JsonResponse
     {
         $course = $this->repository->getCourse($courseId);
 

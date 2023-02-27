@@ -13,6 +13,7 @@ class ShowController extends CertificateController
     {
         $certificate = $this->repository->getCertificate($certificateCode);
 
+        certificateCode();
         if (!$certificate) {
             return response()->json(
                 [

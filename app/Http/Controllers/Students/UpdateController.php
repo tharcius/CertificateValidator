@@ -10,7 +10,7 @@ class UpdateController extends StudentController
     /**
      * Update a student.
      */
-    public function __invoke(UpdateRequest $data, int $studentId): JsonResponse
+    public function __invoke(UpdateRequest $data, $studentId): JsonResponse
     {
         $student = $this->repository->updateStudent($data->only('name', 'email'), $studentId);
 

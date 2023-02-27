@@ -18,7 +18,7 @@ class StudentRepository implements StudentRepositoryInterface
         return StudentResource::collection($this->student->all());
     }
 
-    public function createStudent(array $student): StudentResource|false
+    public function createStudent($student): StudentResource|false
     {
         try {
             $resource = $this->student->create($student);
@@ -29,7 +29,7 @@ class StudentRepository implements StudentRepositoryInterface
         }
     }
 
-    public function getStudent(int $studentId): StudentResource|false
+    public function getStudent($studentId): StudentResource|false
     {
         try {
             $resource = $this->student->findOrFail($studentId);
@@ -40,7 +40,7 @@ class StudentRepository implements StudentRepositoryInterface
         }
     }
 
-    public function updateStudent(array $data, int $studentId): StudentResource|false
+    public function updateStudent($data, $studentId): StudentResource|false
     {
         try {
             $student = $this->student->findOrFail($studentId);
@@ -52,7 +52,7 @@ class StudentRepository implements StudentRepositoryInterface
         }
     }
 
-    public function deleteStudent(int $studentId): StudentResource|false
+    public function deleteStudent($studentId): StudentResource|false
     {
         try {
             $student = $this->student->findOrFail($studentId);
