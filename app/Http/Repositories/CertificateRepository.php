@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\Http\Resources\CertificateResource;
 use App\Interfaces\CertificateRepositoryInterface;
 use App\Models\Certificate;
+use Exception;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CertificateRepository implements CertificateRepositoryInterface
@@ -20,13 +21,13 @@ class CertificateRepository implements CertificateRepositoryInterface
 
     public function createCertificate(array $certificate): CertificateResource|false
     {
-        $certificate['certificate_code'] = certificateCode();
         try {
+            $certificate['certificate_code'] = certificateCode();
             $resource = $this->certificate->create($certificate);
-            $resource->course->certificates()->sync([$certificate['certificate_id']]);
+            $resource->student->courses()->sync([$certificate['course_id']]);
 
             return new CertificateResource($resource);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -37,7 +38,7 @@ class CertificateRepository implements CertificateRepositoryInterface
             $resource = $this->certificate->where('certificate_code', $certificateCode)->firstOrFail();
             $resource->update(['viewed' => $resource->viewed++]);
             return new CertificateResource($resource);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -52,7 +53,7 @@ class CertificateRepository implements CertificateRepositoryInterface
             $certificate->update($data);
 
             return new CertificateResource($certificate);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -64,7 +65,7 @@ class CertificateRepository implements CertificateRepositoryInterface
             $certificate->deleteOrFail();
 
             return new CertificateResource($certificate);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
