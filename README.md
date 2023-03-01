@@ -8,12 +8,29 @@
 </p>
 
 ## Sobre o projeto
+Sisitema simples para fazer a validação online de certificados emitidos por qualquer curso livre.
+
 
 ## Responsabilidades
 
 ### Rodando o projeto
+Caso for a primera execução, execute o comando:
+```shell
+docker-compose up -d --build
+```
+
+Se ja tiver executado o projeto antes, execute o comando:
+```shell
+docker-compose up -d
+```
 
 ### Testes/QA
+
+Para rodar os testes:
+
+```shell
+docker exec -it certval.laravel php artisan test
+```
 
 ### Roadmap
 - Idealização do projeto e desenho do diagrama de banco de dados.
@@ -32,9 +49,15 @@ Artisan Pint, PHPInsights.
 - Algumas correções no projeto e nos testes automatizados.
 - Implementando Certificados com repositories.
 - Refatorando e limpando as classes
+- Melhorando o README e criando novos artefatos de docs
 
 ### TODO
-- Criar testes para o banco de dados
+- Criar testes completos para o banco de dados.
+- Implementar o auth no projeto.
+- Criar uma rota pública de validação de certificados
+- Criar uma rota para a impressão de certificados
+- Implementar uma camada de observalidade no projeto
+- Implementar CI/CD no projeto
 
 ## License
 
